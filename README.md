@@ -8,9 +8,9 @@ Cross-session approval, question and completion popups for the DeepSeek Harness 
 
 English | [中文](https://github.com/kevinxcw/dsh-approval-popups/blob/main/docs/README.zh.md)
 
-> **Status: 0.1.1 preview.** Built against DSH `0.2.2-rc.1`. It reads a few runtime fields that are not part of the public pending-interaction type; see [Known limitations](#known-limitations).
+> **Status: 0.1.2 preview.** Built against DSH `0.2.2-rc.1`. It reads a few runtime fields that are not part of the public pending-interaction type; see [Known limitations](#known-limitations).
 
-![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-en-light.png)
+![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.2/docs/assets/preview-en-light.png)
 
 *Sample Sessions rendered with the real component; colors follow the active theme.*
 
@@ -57,10 +57,10 @@ The same install works from the CLI on a Web profile:
 dsh plugin --profile web add dsh-approval-popups
 ```
 
-Append `@0.1.1` to pin the registry version, or paste the release tarball URL instead — it is the same build:
+Append `@0.1.2` to pin the registry version, or paste the release tarball URL instead — it is the same build:
 
 ```text
-https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.1/dsh-approval-popups-0.1.1.tgz
+https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.2/dsh-approval-popups-0.1.2.tgz
 ```
 
 DSH installs from the [npm registry](https://www.npmjs.com/package/dsh-approval-popups) or from the tarball; then enable the bundle if DSH leaves it switched off. Both routes ship the built Client bundle, so DSH does not run build scripts.
@@ -111,11 +111,11 @@ Session B: ask for a task that runs for about a minute, then switch back to Sess
 
 The same component in the dark theme — the card surface, primary button label, and hover states all come from theme tokens, so a third-party theme carries over too.
 
-<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
+<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.2/docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
 
 ## Configuration
 
-There is nothing to configure in 0.1.1: the plugin exports no `Config` schema, and `cordis.patch.yml` needs no `config:`. These values are fixed by design:
+There is nothing to configure in 0.1.2: the plugin exports no `Config` schema, and `cordis.patch.yml` needs no `config:`. These values are fixed by design:
 
 | Constant | Value | Why |
 |---|---|---|

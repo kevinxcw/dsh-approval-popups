@@ -8,9 +8,9 @@
 
 [English](https://github.com/kevinxcw/dsh-approval-popups/blob/main/README.md) | 中文
 
-> **状态：0.1.1 预览版。** 针对 DSH `0.2.2-rc.1` 构建。插件会读取少数尚未进入公开类型的运行时字段，见[已知限制](#已知限制)。
+> **状态：0.1.2 预览版。** 针对 DSH `0.2.2-rc.1` 构建。插件会读取少数尚未进入公开类型的运行时字段，见[已知限制](#已知限制)。
 
-![审批、提问和结束提示堆叠在 DSH Web UI 的右下角](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-zh-light.png)
+![审批、提问和结束提示堆叠在 DSH Web UI 的右下角](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.2/docs/assets/preview-zh-light.png)
 
 *示例会话 + 真实组件渲染；配色跟随当前主题。*
 
@@ -57,10 +57,10 @@ dsh-approval-popups
 dsh plugin --profile web add dsh-approval-popups
 ```
 
-加 `@0.1.1` 锁定 registry 版本；不想用 npm 的话，也可以直接粘贴 release 压缩包地址，两者是同一份构建：
+加 `@0.1.2` 锁定 registry 版本；不想用 npm 的话，也可以直接粘贴 release 压缩包地址，两者是同一份构建：
 
 ```text
-https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.1/dsh-approval-popups-0.1.1.tgz
+https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.2/dsh-approval-popups-0.1.2.tgz
 ```
 
 DSH 会从 [npm registry](https://www.npmjs.com/package/dsh-approval-popups) 或压缩包安装；安装后如果插件处于关闭状态，手动启用。两种方式都包含构建好的 Client bundle，DSH 不需要执行构建脚本。
@@ -111,11 +111,11 @@ dsh --profile web --dump-config | grep -n -A3 dsh-approval-popups
 
 同一个组件在深色主题下的样子——卡片底色、主按钮文字和 hover 态都取自主题 token，第三方主题也能跟着变。
 
-<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-zh-dark.png" alt="深色主题下的审批、提问和结束提示卡片" width="720">
+<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.2/docs/assets/preview-zh-dark.png" alt="深色主题下的审批、提问和结束提示卡片" width="720">
 
 ## 配置
 
-0.1.1 没有可配置项：插件不导出 `Config` schema，`cordis.patch.yml` 也不需要 `config:`。以下值是固定的：
+0.1.2 没有可配置项：插件不导出 `Config` schema，`cordis.patch.yml` 也不需要 `config:`。以下值是固定的：
 
 | 常量 | 值 | 原因 |
 |---|---|---|

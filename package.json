@@ -1,6 +1,6 @@
 {
   "name": "dsh-approval-popups",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Cross-session approval, question and completion popups for DeepSeek Harness: a card stack in the bottom-right corner so you can answer background Sessions without switching conversations.",
   "license": "MIT",
   "type": "module",
