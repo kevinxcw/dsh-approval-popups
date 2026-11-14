@@ -2,14 +2,15 @@
 
 给 DeepSeek Harness Web UI 加一组**跨会话提醒弹窗**：不用切走当前对话，就能在右下角处理后台会话的审批、提问和计划审阅，并看到刚刚跑完的会话。
 
+![npm](https://img.shields.io/npm/v/dsh-approval-popups)
 ![DSH 0.2.2-rc.1](https://img.shields.io/badge/DSH-0.2.2--rc.1-5B4BDB)
 ![License MIT](https://img.shields.io/badge/license-MIT-3DA639)
 
-[English](README.md) | 中文
+[English](https://github.com/kevinxcw/dsh-approval-popups/blob/main/README.md) | 中文
 
 > **状态：0.1.0 预览版。** 针对 DSH `0.2.2-rc.1` 构建。插件会读取少数尚未进入公开类型的运行时字段，见[已知限制](#已知限制)。
 
-![审批、提问和结束提示堆叠在 DSH Web UI 的右下角](docs/assets/preview-zh-light.png)
+![审批、提问和结束提示堆叠在 DSH Web UI 的右下角](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-zh-light.png)
 
 *示例会话 + 真实组件渲染；配色跟随当前主题。*
 
@@ -44,19 +45,25 @@ DSH 会在发起请求的那个会话里显示审批或提问，并在侧边栏�
 
 ### 1. 安装
 
-**用 Plugins 页面（推荐）。** 打开 DSH 侧边栏的 **Plugins / 插件** 页面，点 **Add plugin / 添加插件**，粘贴：
+**用 Plugins 页面（推荐）。** 打开 DSH 侧边栏的 **Plugins / 插件** 页面，点 **Add plugin / 添加插件**，粘贴包名：
+
+```text
+dsh-approval-popups
+```
+
+同样的安装也可以走 CLI（Web profile）：
+
+```sh
+dsh plugin --profile web add dsh-approval-popups
+```
+
+加 `@0.1.0` 锁定 registry 版本；不想用 npm 的话，也可以直接粘贴 release 压缩包地址，两者是同一份构建：
 
 ```text
 https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.0/dsh-approval-popups-0.1.0.tgz
 ```
 
-安装后如果插件处于关闭状态，手动启用。这个压缩包已经包含构建好的 Client bundle，DSH 不需要执行构建脚本。
-
-同一个 release 资源也可以直接用 CLI 装进 Web profile：
-
-```sh
-dsh plugin --profile web add https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.0/dsh-approval-popups-0.1.0.tgz
-```
+DSH 会从 [npm registry](https://www.npmjs.com/package/dsh-approval-popups) 或压缩包安装；安装后如果插件处于关闭状态，手动启用。两种方式都包含构建好的 Client bundle，DSH 不需要执行构建脚本。
 
 **从源码安装（开发者）。** 克隆、构建，然后安装目录：
 
@@ -104,7 +111,7 @@ dsh --profile web --dump-config | grep -n -A3 dsh-approval-popups
 
 同一个组件在深色主题下的样子——卡片底色、主按钮文字和 hover 态都取自主题 token，第三方主题也能跟着变。
 
-<img src="docs/assets/preview-zh-dark.png" alt="深色主题下的审批、提问和结束提示卡片" width="720">
+<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-zh-dark.png" alt="深色主题下的审批、提问和结束提示卡片" width="720">
 
 ## 配置
 
@@ -124,6 +131,7 @@ dsh --profile web --dump-config | grep -n -A3 dsh-approval-popups
 |---|---|
 | DSH | `0.2.2-rc.1`（`engines.dsh`；版本不匹配会拒绝加载，而不是半可用） |
 | Node.js | `>=24.9.0`（跟随 DSH 运行时） |
+| 分发方式 | npm [`dsh-approval-popups`](https://www.npmjs.com/package/dsh-approval-popups) 与 GitHub release 压缩包 |
 | 组成 | 纯 Client half；Host 的 `apply()` 故意留空 |
 | 已验证环境 | macOS 26.6.2（arm64）、DSH Desktop 及其 Web UI，0.2.2-rc.1 |
 | 界面语言 | 中文、English |
@@ -135,6 +143,7 @@ Web Client 在浏览器支持时使用 `light-dark()`，否则退回到普通层
 - **读取：** 实时的 `uiSession.sessionStatus` 投影（运行标志、待处理交互、完成标志）、Client 会话列表里的会话标题，以及其它会话的 pending 对象。
 - **写入：** 无。不写文件，不用 `localStorage`，不写 cookie，不改设置。
 - **执行：** 不执行 shell，不起子进程，不发网络请求。
+- **安装时联网：** 只在 DSH 安装或更新插件时发生——从 `registry.npmjs.org`（或你粘贴的 GitHub release 地址）下载包；安装完成后不再发任何请求。
 - **凭据：** 不读取。
 - **回答：** 只有你点击**允许一次**、**拒绝**、**提交回答**、**批准计划**或**打回**之后才会发出，且走 Host 自己的 pending 对象结算。
 - **声音：** 浏览器音频上下文里合成的短音，不下载文件。
@@ -178,10 +187,12 @@ pnpm pack --dry-run
 
 `lib/` 不提交。用 `link:` 安装本地目录前先构建；之后只改 Client 的改动由 HMR 或刷新页面生效。`pnpm pack --dry-run` 应包含 `lib/`、`cordis.patch.yml`、`locale/*.json`、`README.md`、`README.zh.md`、`LICENSE` 和 `icon.svg`。
 
+发布同时走两个渠道，共用同一份构建：先改 `version`，执行 `pnpm build && pnpm test`，然后 `npm publish`，再用 `pnpm pack` 的产物创建 `v<version>` 的 GitHub release。
+
 ## 相关项目
 
 - [AnLifeX/dsh-attention](https://github.com/AnLifeX/dsh-attention) — 从 Host 侧解决同一类需求，带可交互卡片、桌面宠物和 Windows 系统通知。`dsh-approval-popups` 是更小的纯 Client 浮层；如果你要的是系统级提醒，选那个。
 
 ## 许可证
 
-MIT。见 [LICENSE](LICENSE)。
+MIT。见 [LICENSE](https://github.com/kevinxcw/dsh-approval-popups/blob/main/LICENSE)。

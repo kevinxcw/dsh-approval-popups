@@ -2,14 +2,15 @@
 
 Cross-session approval, question and completion popups for the DeepSeek Harness Web UI: answer a background Session's request from the bottom-right corner of the conversation you are already in.
 
+![npm](https://img.shields.io/npm/v/dsh-approval-popups)
 ![DSH 0.2.2-rc.1](https://img.shields.io/badge/DSH-0.2.2--rc.1-5B4BDB)
 ![License MIT](https://img.shields.io/badge/license-MIT-3DA639)
 
-English | [中文](README.zh.md)
+English | [中文](https://github.com/kevinxcw/dsh-approval-popups/blob/main/README.zh.md)
 
 > **Status: 0.1.0 preview.** Built against DSH `0.2.2-rc.1`. It reads a few runtime fields that are not part of the public pending-interaction type; see [Known limitations](#known-limitations).
 
-![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](docs/assets/preview-en-light.png)
+![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-en-light.png)
 
 *Sample Sessions rendered with the real component; colors follow the active theme.*
 
@@ -44,19 +45,25 @@ Details that matter in daily use:
 
 ### 1. Install
 
-**Plugin Manager (recommended).** In DSH, open **Plugins** in the sidebar, choose **Add plugin**, and paste this address:
+**Plugin Manager (recommended).** In DSH, open **Plugins** in the sidebar, choose **Add plugin**, and paste the package name:
+
+```text
+dsh-approval-popups
+```
+
+The same install works from the CLI on a Web profile:
+
+```sh
+dsh plugin --profile web add dsh-approval-popups
+```
+
+Append `@0.1.0` to pin the registry version, or paste the release tarball URL instead — it is the same build:
 
 ```text
 https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.0/dsh-approval-popups-0.1.0.tgz
 ```
 
-Install it, then enable the bundle if DSH leaves it switched off. The tarball already contains the built Client bundle, so DSH does not run build scripts.
-
-The same release asset works from the CLI on a Web profile:
-
-```sh
-dsh plugin --profile web add https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.0/dsh-approval-popups-0.1.0.tgz
-```
+DSH installs from the [npm registry](https://www.npmjs.com/package/dsh-approval-popups) or from the tarball; then enable the bundle if DSH leaves it switched off. Both routes ship the built Client bundle, so DSH does not run build scripts.
 
 **From a checkout (developers).** Clone, build, then install the directory:
 
@@ -104,7 +111,7 @@ Session B: ask for a task that runs for about a minute, then switch back to Sess
 
 The same component in the dark theme — the card surface, primary button label, and hover states all come from theme tokens, so a third-party theme carries over too.
 
-<img src="docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
+<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
 
 ## Configuration
 
@@ -124,6 +131,7 @@ There is nothing to configure in 0.1.0: the plugin exports no `Config` schema, a
 |---|---|
 | DSH | `0.2.2-rc.1` (`engines.dsh`; a mismatch is refused instead of loading half-working) |
 | Node.js | `>=24.9.0` (inherited from the DSH runtime) |
+| Distribution | npm [`dsh-approval-popups`](https://www.npmjs.com/package/dsh-approval-popups) and the GitHub release tarball |
 | Half | Client-only; the Host `apply()` is intentionally empty |
 | Tested on | macOS 26.6.2 (arm64), DSH Desktop + Web UI at 0.2.2-rc.1 |
 | Interface language | English and 中文 |
@@ -135,6 +143,7 @@ The Web Client uses `light-dark()` when the browser supports it and a plain laye
 - **Reads:** the live `uiSession.sessionStatus` projection (running flag, pending interaction, completion flag), Session titles from the Client Session list, and the pending interaction objects of other Sessions.
 - **Writes:** nothing. No files, no `localStorage`, no cookies, no settings.
 - **Executes:** no shell commands, no subprocesses, no network requests.
+- **Install-time network:** only while DSH installs or updates the plugin — it downloads the package from `registry.npmjs.org` (or the GitHub release URL you pasted). Once installed, the plugin makes no requests.
 - **Credentials:** none.
 - **Answers:** never sent until you click **Allow once**, **Reject**, **Submit answer**, **Approve plan**, or **Send back**. The answer travels through the Host's own pending object.
 - **Audio:** a short synthesized tone through the browser's audio context; no file is downloaded.
@@ -178,10 +187,12 @@ pnpm pack --dry-run
 
 `lib/` is not committed. Build before installing a local checkout with `link:`; after that, Client-only changes are picked up by HMR or a page refresh. `pnpm pack --dry-run` should list `lib/`, `cordis.patch.yml`, `locale/*.json`, `README.md`, `README.zh.md`, `LICENSE`, and `icon.svg`.
 
+Releases go to both channels from the same build: bump `version`, run `pnpm build && pnpm test`, then `npm publish`, and attach the `pnpm pack` tarball to a GitHub release tagged `v<version>`.
+
 ## Related projects
 
 - [AnLifeX/dsh-attention](https://github.com/AnLifeX/dsh-attention) — covers the same need from the Host side, with interactive cards, a desktop pet, and Windows system notifications. `dsh-approval-popups` is a smaller, Client-only overlay; pick that one if you want OS-level alerts.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](https://github.com/kevinxcw/dsh-approval-popups/blob/main/LICENSE).
