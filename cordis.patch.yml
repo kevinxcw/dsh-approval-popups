@@ -1,0 +1,9 @@
+# dsh-approval-popups bundle patch.
+#
+# One row. The Host half is intentionally empty: every data source this plugin
+# reads (session status, pending interactions, session catalog) already exists
+# on the Web Client. The client half is picked up from `dsh.client` without a
+# second row.
+- insert:
+    - id: dsh-approval-popups
+      name: dsh-approval-popups

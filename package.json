@@ -1,0 +1,78 @@
+{
+  "name": "dsh-approval-popups",
+  "version": "0.1.0",
+  "description": "Cross-session approval, question and completion popups for DeepSeek Harness: a card stack in the bottom-right corner so you can answer background Sessions without switching conversations.",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinxcw/dsh-approval-popups.git"
+  },
+  "homepage": "https://github.com/kevinxcw/dsh-approval-popups#readme",
+  "bugs": {
+    "url": "https://github.com/kevinxcw/dsh-approval-popups/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "approval",
+    "notification",
+    "cross-session",
+    "popup"
+  ],
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "icon.svg"
+  ],
+  "engines": {
+    "node": ">=24.9.0",
+    "dsh": "0.2.2-rc.1"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-locale"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-client.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "pretest": "tsc -p tsconfig.json && node scripts/copy-client.mjs",
+    "test": "node --test test/*.mjs",
+    "prepare": "tsc -p tsconfig.json && node scripts/copy-client.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-test-renderer": "18.3.1",
+    "typescript": "^5.7.2"
+  }
+}
