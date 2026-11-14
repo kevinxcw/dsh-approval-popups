@@ -6,11 +6,11 @@ Cross-session approval, question and completion popups for the DeepSeek Harness 
 ![DSH 0.2.2-rc.1](https://img.shields.io/badge/DSH-0.2.2--rc.1-5B4BDB)
 ![License MIT](https://img.shields.io/badge/license-MIT-3DA639)
 
-English | [中文](https://github.com/kevinxcw/dsh-approval-popups/blob/main/README.zh.md)
+English | [中文](https://github.com/kevinxcw/dsh-approval-popups/blob/main/docs/README.zh.md)
 
-> **Status: 0.1.0 preview.** Built against DSH `0.2.2-rc.1`. It reads a few runtime fields that are not part of the public pending-interaction type; see [Known limitations](#known-limitations).
+> **Status: 0.1.1 preview.** Built against DSH `0.2.2-rc.1`. It reads a few runtime fields that are not part of the public pending-interaction type; see [Known limitations](#known-limitations).
 
-![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-en-light.png)
+![Approval, question and completion cards stacked in the bottom-right corner of the DSH Web UI](https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-en-light.png)
 
 *Sample Sessions rendered with the real component; colors follow the active theme.*
 
@@ -57,10 +57,10 @@ The same install works from the CLI on a Web profile:
 dsh plugin --profile web add dsh-approval-popups
 ```
 
-Append `@0.1.0` to pin the registry version, or paste the release tarball URL instead — it is the same build:
+Append `@0.1.1` to pin the registry version, or paste the release tarball URL instead — it is the same build:
 
 ```text
-https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.0/dsh-approval-popups-0.1.0.tgz
+https://github.com/kevinxcw/dsh-approval-popups/releases/download/v0.1.1/dsh-approval-popups-0.1.1.tgz
 ```
 
 DSH installs from the [npm registry](https://www.npmjs.com/package/dsh-approval-popups) or from the tarball; then enable the bundle if DSH leaves it switched off. Both routes ship the built Client bundle, so DSH does not run build scripts.
@@ -111,11 +111,11 @@ Session B: ask for a task that runs for about a minute, then switch back to Sess
 
 The same component in the dark theme — the card surface, primary button label, and hover states all come from theme tokens, so a third-party theme carries over too.
 
-<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.0/docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
+<img src="https://raw.githubusercontent.com/kevinxcw/dsh-approval-popups/v0.1.1/docs/assets/preview-en-dark.png" alt="The same approval, question and completion cards in the DSH dark theme" width="720">
 
 ## Configuration
 
-There is nothing to configure in 0.1.0: the plugin exports no `Config` schema, and `cordis.patch.yml` needs no `config:`. These values are fixed by design:
+There is nothing to configure in 0.1.1: the plugin exports no `Config` schema, and `cordis.patch.yml` needs no `config:`. These values are fixed by design:
 
 | Constant | Value | Why |
 |---|---|---|
@@ -185,7 +185,7 @@ pnpm pack --dry-run
 
 `src/client.js` is plain JavaScript on purpose: the Module Loader evaluates the bundle directly, and TypeScript is only used for the empty Host entry. The tests load the built bundle with a stubbed React/DOM and drive the session-status source, covering pending collection, completion debounce, subagent filtering, current-Session suppression, the multi-question layout, and the theme palette.
 
-`lib/` is not committed. Build before installing a local checkout with `link:`; after that, Client-only changes are picked up by HMR or a page refresh. `pnpm pack --dry-run` should list `lib/`, `cordis.patch.yml`, `locale/*.json`, `README.md`, `README.zh.md`, `LICENSE`, and `icon.svg`.
+`lib/` is not committed. Build before installing a local checkout with `link:`; after that, Client-only changes are picked up by HMR or a page refresh. `pnpm pack --dry-run` should list `lib/`, `cordis.patch.yml`, `locale/*.json`, `README.md`, `docs/README.zh.md`, `LICENSE`, and `icon.svg`.
 
 Releases go to both channels from the same build: bump `version`, run `pnpm build && pnpm test`, then `npm publish`, and attach the `pnpm pack` tarball to a GitHub release tagged `v<version>`.
 
